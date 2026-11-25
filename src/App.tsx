@@ -5,25 +5,45 @@ export default function App() {
   const [monto, setMonto] = useState('');
   const [tea, setTea] = useState('');
   const [meses, setMeses] = useState('');
-  const [resultado, setResultado] = useState('');
+  const [cuota, setCuota] = useState<number | null>(null);
+  const [error, setError] = useState('');
 
   const calcular = () => {
     try {
-      const cuota = calcularCuota(Number(monto), Number(tea), Number(meses));
-      setResultado(`Cuota mensual: S/ ${cuota.toFixed(2)}`);
+      setCuota(calcularCuota(Number(monto), Number(tea), Number(meses)));
+      setError('');
     } catch (e) {
-      setResultado((e as Error).message);
+      setCuota(null);
+      setError((e as Error).message);
     }
   };
 
+  const campos = [
+    { label: 'Monto (S/)', value: monto, set: setMonto },
+    { label: 'TEA (%)', value: tea, set: setTea },
+    { label: 'Plazo (meses)', value: meses, set: setMeses },
+  ];
+
   return (
-    <main style={{ maxWidth: 360, margin: '40px auto', fontFamily: 'sans-serif', display: 'grid', gap: 12 }}>
-      <h1>CuotaApp</h1>
-      <input type="number" placeholder="Monto (S/)" value={monto} onChange={(e) => setMonto(e.target.value)} />
-      <input type="number" placeholder="TEA (%)" value={tea} onChange={(e) => setTea(e.target.value)} />
-      <input type="number" placeholder="Plazo (meses)" value={meses} onChange={(e) => setMeses(e.target.value)} />
-      <button onClick={calcular}>Calcular</button>
-      <p>{resultado}</p>
+    <main className="app">
+      <div>
+        <h1 className="title">CuotaApp</h1>
+        <p className="subtitle">Método francés · TEA</p>
+      </div>
+      {campos.map(({ label, value, set }) => (
+        <label key={label} className="field">
+          <span className="label">{label}</span>
+          <input className="input" type="number" value={value} onChange={(e) => set(e.target.value)} />
+        </label>
+      ))}
+      <button className="button" onClick={calcular}>Calcular</button>
+      {error && <p className="error">{error}</p>}
+      {cuota !== null && (
+        <div className="card">
+          <span className="label">Cuota mensual</span>
+          <span className="amount">S/ {cuota.toFixed(2)}</span>
+        </div>
+      )}
     </main>
   );
 }

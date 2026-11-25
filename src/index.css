@@ -1,0 +1,31 @@
+:root { color-scheme: dark; }
+* { box-sizing: border-box; margin: 0; }
+html, body, #root { min-height: 100%; }
+body {
+  min-height: 100vh;
+  background: #121318;
+  color: #F2EFE6;
+  font-family: ui-monospace, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.app { width: 100%; max-width: 420px; padding: 24px; display: grid; gap: 16px; }
+.title { font-size: 28px; }
+.subtitle, .label { color: #9AA0AA; }
+.subtitle { font-size: 14px; }
+.field { display: grid; gap: 6px; }
+.label { font-size: 13px; }
+.input {
+  height: 52px; padding: 0 16px; font: inherit; font-size: 16px; color: #F2EFE6;
+  background: #1C1E25; border: 1px solid #2A2D36; border-radius: 12px; outline: none;
+}
+.input::placeholder { color: #9AA0AA; }
+.input:focus { border-color: #4C7DFF; }
+.button {
+  height: 52px; font: inherit; font-size: 16px; font-weight: bold; color: #FFFFFF;
+  background: #4C7DFF; border: none; border-radius: 12px; cursor: pointer;
+}
+.card { background: #1C1E25; border: 1px solid #2A2D36; border-radius: 12px; padding: 16px; display: grid; gap: 6px; }
+.amount { color: #4C7DFF; font-size: 36px; font-weight: bold; }
+.error { color: #FF6B6B; }
